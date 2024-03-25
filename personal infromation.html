@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Information</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+.info {
+    margin-bottom: 20px;
+}
+
+.info p {
+    margin: 10px 0;
+    color: #666;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Personal Information</h1>
+    <div class="info">
+        <p><strong>Name:</strong> Mercyline Mbeyu Kahindi</p>
+        <p><strong>Email:</strong> mercylinembeyu202@gmail.com</p>
+        <p><strong>Gender:</strong> Female</p>
+        <p><strong>Date of Birth:</strong> 28/2/2003</p>
+        <p><strong>Place of Birth:</strong> Malindi</p>
+        <p><strong>Marital Status:</strong> Single</p>
+    </div>
+    <button id="view-details-btn">View Personal Information</button>
+</div>
+
+<script>
+document.getElementById("view-details-btn").addEventListener("click", function() {
+    // Redirect to personal information page
+    window.location.href = "personal_information.html";
+});
+</script>
+</body>
+</html>
