@@ -1,0 +1,327 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BestCoach - Online Bus Booking System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #6699ff;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        select {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        select {
+            appearance: none;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #6699ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #4d85e8;
+        }
+
+        .booking-slip,
+        .payment-slip {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .booking-slip h2,
+        .payment-slip h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .booking-slip p,
+        .payment-slip p {
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        .green-bar {
+            background-color: #3CB371;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            animation: slideText 8s linear infinite;
+        }
+
+        @keyframes slideText {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>BestCoach - Online Bus Booking System</h1>
+    <form id="booking-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" required>
+        <label for="id-number">ID Number:</label>
+        <input type="text" id="id-number" required>
+        <label for="destination">Select Destination:</label>
+        <select id="destination" required>
+            <option value="">Select Destination</option>
+            <option value="Nairobi-Kisumu">Nairobi - Kisumu</option>
+            <option value="Kisumu-Mombasa">Kisumu - Mombasa</option>
+            <option value="Kakamega-Kericho">Kakamega - Kericho</option>
+            <option value="Malindi-Mombasa">Malindi - Mombasa</option>
+        </select>
+        <label for="seat">Select Seat:</label>
+        <select id="seat" required>
+            <option value="">Select Seat</option>
+            <!-- Seat options will be dynamically added using JavaScript -->
+        </select>
+        <label for="travel-date">Travel Date:</label>
+        <input type="date" id="travel-date" required>
+        <label for="cost">Transport Cost:</label>
+        <input type="text" id="cost" readonly>
+        <button type="submit">Book Now</button>
+    </form>
+
+    <div class="booking-slip" id="booking-slip" style="display: none;">
+        <h2>Booking Slip</h2>
+        <p><strong>Name:</strong> <span id="slip-name"></span></p>
+        <p><strong>Phone Number:</strong> <span id="slip-phone"></span></p>
+        <p><strong>ID Number:</strong> <span id="slip-id"></span></p>
+        <p><strong>Destination:</strong> <span id="slip-destination"></span></p>
+        <p><strong>Seat Number:</strong> <span id="slip-seat"></span></p>
+        <p><strong>Departure Date:</strong> <span id="slip-departure-date"></span></p>
+        <p><strong>Departure Time:</strong> <span id="slip-departure-time"></span></p>
+        <p><strong>Transport Cost:</strong> Ksh <span id="slip-cost"></span></p>
+        <p><strong>Vehicle Registration Number:</strong> <span id="vehicle-registration"></span></p>
+    </div>
+
+    <div class="payment-slip" id="payment-slip" style="display: none;">
+        <h2>Payment Slip</h2>
+        <p><strong>Name:</strong> <span id="payment-name"></span></p>
+        <p><strong>Phone Number:</strong> <span id="payment-phone"></span></p>
+        <p><strong>Amount Paid:</strong> Ksh <span id="payment-amount"></span></p>
+        <p><strong>Transaction Code:</strong> <span id="transaction-code"></span></p>
+        <p><strong>Destination:</strong> <span id="payment-destination"></span></p>
+        <p><strong>Account for Payment:</strong> KCB 1313989</p>
+    </div>
+
+    <button id="pay-button" onclick="pay()">Pay</button>
+    <button id="print-button" onclick="printSlips()">Print</button>
+    <button id="download-button" onclick="downloadSlips()">Download</button>
+    <button id="book-another" onclick="bookAnother()">Book Another</button>
+</div>
+
+<div class="green-bar">Welcome to BestCoach Services. We satisfy your travel needs!</div>
+
+<script>
+    const destinationCosts = {
+        'Nairobi-Kisumu': 1500,
+        'Kisumu-Mombasa': 2000,
+        'Kakamega-Kericho': 4000,
+        'Malindi-Mombasa': 3000
+    };
+
+    const seatAvailability = {
+        'Nairobi-Kisumu': ['1A', '1x', '2A', '2B', '3B'],
+        'Kisumu-Mombasa': ['4A', '4B', '5A', '5B', '6A', '6B'],
+        'Kakamega-Kericho': ['7A', '7B', '8A', '8B', '9A', '9B'],
+        'Malindi-Mombasa': ['10A', '10B', '11A', '11B', '12A', '12B']
+    };
+
+    const vehicleRegistration = {
+        'Nairobi-Kisumu': 'KPL 123X',
+        'Kisumu-Mombasa': 'KBC 456Y',
+        'Kakamega-Kericho': 'KDE 789Z',
+        'Malindi-Mombasa': 'KAF 321W'
+    };
+
+    const form = document.getElementById('booking-form');
+    const destinationSelect = document.getElementById('destination');
+    const seatSelect = document.getElementById('seat');
+    const travelDateInput = document.getElementById('travel-date');
+    const costInput = document.getElementById('cost');
+    const bookingSlip = document.getElementById('booking-slip');
+    const paymentSlip = document.getElementById('payment-slip');
+    const slipName = document.getElementById('slip-name');
+    const slipPhone = document.getElementById('slip-phone');
+    const slipId = document.getElementById('slip-id');
+    const slipDestination = document.getElementById('slip-destination');
+    const slipSeat = document.getElementById('slip-seat');
+    const slipDepartureDate = document.getElementById('slip-departure-date');
+    const slipDepartureTime = document.getElementById('slip-departure-time');
+    const slipCost = document.getElementById('slip-cost');
+    const vehicleRegistrationDisplay = document.getElementById('vehicle-registration');
+    const paymentName = document.getElementById('payment-name');
+    const paymentPhone = document.getElementById('payment-phone');
+    const paymentAmount = document.getElementById('payment-amount');
+    const transactionCode = document.getElementById('transaction-code');
+    const paymentDestination = document.getElementById('payment-destination');
+    const payButton = document.getElementById('pay-button');
+    const printButton = document.getElementById('print-button');
+    const downloadButton = document.getElementById('download-button');
+    const bookAnotherButton = document.getElementById('book-another');
+
+    // Populate seat options based on destination
+    destinationSelect.addEventListener('change', () => {
+        const selectedDestination = destinationSelect.value;
+        const availableSeats = seatAvailability[selectedDestination] || [];
+        seatSelect.innerHTML = '<option value="">Select Seat</option>';
+        availableSeats.forEach(seat => {
+            seatSelect.innerHTML += `<option value="${seat}">${seat}</option>`;
+        });
+        costInput.value = destinationCosts[selectedDestination] || '';
+    });
+
+    // Form submission
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const selectedDestination = destinationSelect.value;
+        const selectedSeat = seatSelect.value;
+        if (!selectedDestination || !selectedSeat) {
+            alert('Please select destination and seat');
+            return;
+        }
+        const availableSeats = seatAvailability[selectedDestination] || [];
+        if (!availableSeats.includes(selectedSeat)) {
+            alert('Selected seat is occupied. Please choose another seat.');
+            return;
+        }
+        bookingSlip.style.display = 'block';
+        slipName.textContent = form.elements['name'].value;
+        slipPhone.textContent = form.elements['phone'].value;
+        slipId.textContent = form.elements['id-number'].value;
+        slipDestination.textContent = destinationSelect.options[destinationSelect.selectedIndex].text;
+        slipSeat.textContent = selectedSeat;
+        slipCost.textContent = costInput.value;
+        const departureDate = travelDateInput.value;
+        slipDepartureDate.textContent = departureDate;
+        const departureTime = generateDepartureTime(selectedDestination);
+        slipDepartureTime.textContent = departureTime;
+        payButton.style.display = 'block';
+        bookAnotherButton.style.display = 'block';
+    });
+
+    // Function to generate automatic departure time
+    function generateDepartureTime(destination) {
+        // Logic to generate departure time based on destination and current date
+        return '09:00 AM'; // Dummy departure time for demonstration
+    }
+
+    // Function to handle payment
+    function pay() {
+        const phoneNumber = prompt('Enter your phone number:');
+        if (!phoneNumber) return;
+        const pin = prompt('Enter your PIN:');
+        if (!pin) return;
+        const transactionCodeValue = generateTransactionCode();
+        paymentSlip.style.display = 'block';
+        paymentName.textContent = slipName.textContent;
+        paymentPhone.textContent = phoneNumber;
+        paymentAmount.textContent = slipCost.textContent;
+        transactionCode.textContent = transactionCodeValue;
+        paymentDestination.textContent = slipDestination.textContent;
+        printButton.style.display = 'block';
+        downloadButton.style.display = 'block';
+        bookAnotherButton.style.display = 'block';
+    }
+
+    // Function to generate transaction code
+    function generateTransactionCode() {
+        // Logic to generate transaction code
+        return 'TC12345'; // Dummy transaction code for demonstration
+    }
+
+    // Function to print slips
+    function printSlips() {
+        const bookingSlipData = document.getElementById('booking-slip').outerHTML;
+        const paymentSlipData = document.getElementById('payment-slip').outerHTML;
+        const combinedSlips = bookingSlipData + paymentSlipData;
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write('<html><head><title>Print</title></head><body>');
+        printWindow.document.write(combinedSlips);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    }
+
+    // Function to download slips
+    function downloadSlips() {
+        const bookingSlipData = document.getElementById('booking-slip').outerHTML;
+        const paymentSlipData = document.getElementById('payment-slip').outerHTML;
+        const combinedSlips = bookingSlipData + paymentSlipData;
+        const pdf = new jsPDF();
+        pdf.text('Booking Slip and Payment Slip:', 10, 10);
+        pdf.fromHTML(combinedSlips, 10, 15);
+        pdf.save('booking_payment_slips.pdf');
+    }
+
+    // Function to book another trip
+    function bookAnother() {
+        form.reset();
+        bookingSlip.style.display = 'none';
+        paymentSlip.style.display = 'none';
+        payButton.style.display = 'none';
+        printButton.style.display = 'none';
+        downloadButton.style.display = 'none';
+        bookAnotherButton.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
