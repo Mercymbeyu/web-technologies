@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Personal Portfolio</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: lightpink;
+            color: #333; /* Text color */
+        }
+        
+        header {
+            background-color: orange;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        nav {
+            background-color: yellow;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        nav a:hover {
+            background-color: pink;
+        }
+        
+        nav a.active {
+            background-color: blue;
+            color: white;
+        }
+        
+        section {
+            padding: 20px;
+        }
+        
+        footer {
+            background-color: rgb(26, 25, 23);
+            padding: 20px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="C:\Users\USER\Desktop\MBEYU WEB PROJECT\photo 1.jpeg" alt="Header Image">
+    <h1>My Personal Portfolio</h1>
+</header>
+
+<nav>
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<section id="home">
+    <h2 style="color: #2c2a2a;">Welcome to My Portfolio</h2>
+    <p>Hello, Mbeyu here, Welcome to my portfolio website!</p>
+    <p>Check out my latest projects and feel free to contact me for any .</p>
+</section>
+<h2><p> Featued Projects</p></h2>
+<style>
+.container {
+    text-align: left;
+  
+}
+
+</style>
+<div class="container">
+    <ul id="projects-list">
+        <li>Project 1:Guess the number game</li>
+        <li>Project 2: Online Bus Booking System</li>
+
+    </ul>
+</div>
+<header><section id="about">
+    <h2 style="color: #121213;">About Me</h2></header>
+    <h3>Profile</h3>
+    <p>I am a passionate web developer...</p>
+    <p>I have skills in dfferent fields which includes:</p>
+
+    <section>
+        <h3 style="color: #186bbe;">Skills</h3>
+        <ol>
+            <li>
+                <strong>HTML5</strong>
+                <ul>
+                    <li>Strong foundation in semantic markup</li>
+                    <li>Familiarity with HTML5 APIs</li>
+                </ul>
+            </li>
+            <li>
+                <strong>CSS3</strong>
+                <ul>
+                    <li>Proficient in CSS Flexbox and Grid</li>
+                    <li>Experience with CSS preprocessors like Sass</li>
+                </ul>
+            </li>
+            <li>
+                <strong>JavaScript</strong>
+                <ul>
+                    <li>Advanced knowledge of ES6+ features</li>
+                    <li>Experience with frameworks like React and Vue.js</li>
+                </ul>
+            </li>
+            <li>
+                <strong>React</strong>
+                <ul>
+                    <li>Building single-page applications</li>
+                    <li>State management with Redux</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Node.js</strong>
+                <ul>
+                    <li>Building server-side applications</li>
+                    <li>Working with Express.js framework</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+    
+    
+    <h2 style="color: #6699ff;">Education</h2>
+    <p>Bachelor of Education Science, Mathematics and Computer studies, Masinde Muliro  University</p>
+    <p>Master of Science in Web Development, Kenyatta  University</p>
+   <p> Here is a summary of my education journey</p>
+   <section>
+    
+    <table border="5" style="border-collapse: collapse;" >
+        <thead style="background-color: green; color: white;">
+            <tr>
+                <th>Qualification</th>
+                <th>Institution</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>KCPE</td>
+                <td>Ribe Primary</td>
+                <td>1995-2003</td>
+            </tr>
+            <tr>
+                <td>Kenya Certificate of seconadry Education</td>
+                <td>Alliance Girls</td>
+                <td>2004-2008</td>
+            </tr>
+            <tr>
+                <td>Bachelor of Science in Education Science</td>
+                <td>Masinde Muliro University</td>
+                <td>2009-2013</td>
+            </tr>
+            <tr>
+                <td>Master of Science in Web Development</td>
+                <td>Kenyatta  University</td>
+                <td>2021-2023</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+<b><p>Below is a sample of my curriculum vitae</p><b>
+
+</section>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Education & Curriculum Vitae</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #fdd4d4;
+        color: #333;
+    }
+
+    .cv-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        max-width: 600px;
+    }
+
+    .cv-header h3 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .cv-header p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .cv-body h4 {
+        color: #6699ff;
+        margin-bottom: 10px;
+    }
+
+    .cv-body ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .cv-body ul li {
+        margin-bottom: 10px;
+    }
+
+    .cv-body ul p {
+        margin-bottom: 5px;
+    }
+
+    .cv-body ul strong {
+        color: #333;
+    }
+
+    .cv-body ul em {
+        color: #e7b3b3;
+    }
+</style>
+</head>
+<body>
+
+<div class="cv-container">
+<div class="cv-header">
+    <h3>Mercyline Mbeyu</h3>
+    <p>Email: mercylinembeyu2022@gmail.com | Phone: +254796924786</p>
+</div>
+<div class="cv-body">
+    <h4>Education</h4>
+    <ul>
+        <li><strong>Bachelor of Education Science, Mathematics computer studies</strong></li>
+        <p><em>masinde muliro University, 2016-2020</em></p>
+        <li><strong>Master of Science in Web Development</strong></li>
+        <p><em>kenyatta university University, 2021-2023</em></p>
+    </ul>
+    <h4>Professional Experience</h4>
+    <ul>
+        <li><strong>Web Developer Intern</strong></li>
+        <p><em>Google Company, 2022</em></p>
+        <p>Developed responsive websites using HTML, CSS, and JavaScript.</p>
+    </ul>
+    <h4>Skills</h4>
+    <ul>
+        <li>Teaching</li>
+        <li>HTML5 & CSS3</li>
+        <li>JavaScript (ES6+)</li>
+        <li>React.js & Vue.js</li>
+        <li>Node.js & Express.js</li>
+        <li>Responsive Design</li>
+        <li>UI/UX Design Principles</li>
+    </ul>
+</div>
+</div>
+
+</body>
+<footer>
+    <a href="#" target="_blank">Facebook</a>
+    <a href="#" target="_blank">Twitter</a>
+    <a href="#" target="_blank">LinkedIn</a>
+</footer>
+
+<script>
+    const navLinks = document.querySelectorAll('nav a');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.forEach(otherLink => otherLink.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
+</script>
+</section>
+
+<header><section id="services">
+    <h2 style="color: #383a39;">Services</h2></header>
+    <p>Inacse you want help from me,<br>I offer the following services</p>
+    <style>>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        border: #010113;
+    }
+
+    tr, th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #0c0101;
+    }
+
+    th {
+        background-color: green;
+        color: white;
+    }
+</style>
+     <table>
+        <thead>
+            <tr>
+                <th>Service</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Web Hosting</td>
+                <td>Secure and reliable hosting solutions for your website.</td>
+            </tr>
+            <tr>
+                <td>Web Design</td>
+                <td>Customized web design tailored to your brand and requirements.</td>
+            </tr>
+            <tr>
+                <td>Web Deployment</td>
+                <td>Efficient deployment of your web applications on various platforms.</td>
+            </tr>
+            <tr>
+                <td>Training Services</td>
+                <td>Professional training in web development technologies and methodologies.</td>
+            </tr>
+            <tr>
+                <td>Web Maintenance</td>
+                <td>Ongoing support and maintenance to keep your website running smoothly.</td>
+            </tr>
+            <tr>
+                <td>SEO Optimization</td>
+                <td>Improve your website's visibility and ranking on search engines.</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+</section>
+
+<header><section id="projects">
+    <h2 style="color: #2c2a27;">Projects</h2></header>
+    <p>Here are some of my projects</p>
+    <p><b> 1. A game project.</p></b><br></b></b>
+    <p>This Project i all about a game, the game enables a user to guess a two-digit number.<br>
+    The user can the play the game repeatedly. </p>
+    <p style="align-content: center;">Take astep and enjoy the game!</p>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      
+
+        h1 {
+            margin-top: 50px;
+            color: #6699ff;
+        }
+
+        #guess-input {
+            width: 80px;    padding: 5px;     margin-top: 20px;     font-size: 16px;
+        }
+
+        #guess-btn, #refresh-btn {           padding: 8px 20px;           margin-top: 10px;            background-color: #6699ff;
+            color: white;            border: none;
+            border-radius: 5px;            cursor: pointer;        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        #random-number {
+            margin-top: 20px;
+            color: #ff6666;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Guess the Number</h1>
+
+<div id="game-container">
+
+    <input type="text" id="guess-input" placeholder="Enter  guess">
+    <br>
+    <button id="guess-btn">Guess</button>
+    <button id="refresh-btn">Refresh</button>
+    <div id="result"></div>
+    <div id="random-number"></div>
+</div>
+
+<script>
+    let randomNumber = generateRandomNumber();
+    const guessBtn = document.getElementById('guess-btn');
+    const refreshBtn = document.getElementById('refresh-btn');
+    const guessInput = document.getElementById('guess-input');
+    const result = document.getElementById('result');
+    const randomNumberDisplay = document.getElementById('random-number');
+    
+    guessBtn.addEventListener('click', () => {
+        checkGuess();
+    });
+
+    refreshBtn.addEventListener('click', () => {
+        randomNumber = generateRandomNumber();
+        guessInput.disabled = false;
+        guessInput.value = '';
+        result.textContent = '';
+        randomNumberDisplay.textContent = '';
+    });
+
+    function generateRandomNumber() {
+        return Math.floor(Math.random() * 90) + 10; // Generate random number between 10 and 99
+    }
+    function checkGuess() {
+        const userGuess = parseInt(guessInput.value);
+        if (isNaN(userGuess) || userGuess < 10 || userGuess > 99) {
+            alert('Please enter a valid two-digit number between 10 and 99.');
+            return;
+        }
+        if (userGuess === randomNumber) {
+            result.textContent = 'Congratulations! You win!';
+        } else {
+            result.textContent = 'Sorry, you lost.';
+        }
+        randomNumberDisplay.textContent = 'The correct number was: ' + randomNumber;
+        guessInput.disabled = true;
+    }
+</script>
+</section>
+<h2>2. Online Bus Booking System</h2>
+<p>This project has a linked  Online bus n=booking system to enable user bookfrom any remote loaction, make paymentand print the booking slip.<br> Tje booking slip contains the details of the booking made. <br>Take a step and Book!! See you!! </p>
+
+
+<a href="C:\Users\USER\Desktop\MBEYU WEB PROJECT\booking system.html">Book Now</a>
+
+<header><section id="contact">
+    <h2 style="color: #272325;">Contact Me</h2></header>
+    <p> You can Also Contact me Directly Throuh:<br></p>
+<a href=https://wa.me/254735467469 target="_blank">WhatsApp</a><br> or call
+<a href="tel:+254735467469">+254 (735) 467-469</a><br> or 
+<a href="sms:+254735467469">Send SMS</a>
+
+    <p>Feel free to get in touch with me, i will instantly reply.</p>
+    <section>
+        <style>
+        .contact-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-container h2 {
+            color: #6699ff;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .contact-form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .contact-form textarea {
+            height: 100px;
+        }
+
+        .contact-form input[type="submit"] {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact-form input[type="submit"]:hover {
+            background-color: #ff9933;
+        }
+    </style>
+
+
+<header>
+        <div class="contact-container">
+            <h2>Contact Me</h2>
+            <div class="contact-info">
+                <p><strong>Name:</strong> Mercy Mbeyu</p>
+                <p><strong>Email:</strong> mercylinembeyu2022@gmail.com</p>
+                <p><strong>Phone:</strong> +25496924786</p>
+                <p><strong>Address:</strong> 123 Malindi, Mombasa, Kenya</p>
+            </div>
+            <div class="contact-form">
+                <form action="#" method="post">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required></textarea>
+                    <input type="submit" value="Send Message">
+                </form>
+            </div>
+        </div>
+    </section>
+<p> You can Also Contact me Directly Throuh:<br></p>
+<a href="#" target="_blank">Facebook</a>
+<footer>
+    <a href="#" target="_blank">Facebook</a>
+    <a href="#" target="_blank">Twitter</a>
+    <a href="#" target="_blank">LinkedIn</a>
+</footer>
+
+<script>
+    const navLinks = document.querySelectorAll('nav a');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.forEach(otherLink => otherLink.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>

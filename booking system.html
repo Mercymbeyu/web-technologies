@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BestCoach - Online Bus Booking System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #6699ff;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        select {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        select {
+            appearance: none;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #6699ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #4d85e8;
+        }
+
+        .booking-slip {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .booking-slip h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .booking-slip p {
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        #print-button {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>BestCoach - Online Bus Booking System</h1>
+    <form id="booking-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" required>
+        <label for="id-number">ID Number:</label>
+        <input type="text" id="id-number" required>
+        <label for="destination">Select Destination:</label>
+        <select id="destination" required>
+            <option value="">Select Destination</option>
+            <option value="Nairobi-Kisumu">Nairobi - Kisumu</option>
+            <option value="Kisumu-Mombasa">Kisumu - Mombasa</option>
+            <option value="Kakamega-Kericho">Kakamega - Kericho</option>
+            <option value="Malindi-Mombasa">Malindi - Mombasa</option>
+        </select>
+        <label for="seat">Select Seat:</label>
+        <select id="seat" required>
+            <option value="">Select Seat</option>
+            <!-- Seat options will be dynamically added using JavaScript -->
+        </select>
+        <label for="cost">Transport Cost:</label>
+        <input type="text" id="cost" readonly>
+        <button type="submit">Book Now</button>
+    </form>
+
+    <div class="booking-slip" id="booking-slip" style="display: none;">
+        <h2>Booking Slip</h2>
+        <p><strong>Name:</strong> <span id="slip-name"></span></p>
+        <p><strong>Phone Number:</strong> <span id="slip-phone"></span></p>
+        <p><strong>ID Number:</strong> <span id="slip-id"></span></p>
+        <p><strong>Destination:</strong> <span id="slip-destination"></span></p>
+        <p><strong>Seat Number:</strong> <span id="slip-seat"></span></p>
+        <p><strong>Transport Cost:</strong> Ksh <span id="slip-cost"></span></p>
+        <p><strong>Vehicle Registration Number:</strong> <span id="vehicle-registration"></span></p>
+        <button id="print-button" onclick="printSlip()">Print Booking Slip</button>
+    </div>
+
+    <button id="book-another" style="display: none;" onclick="bookAnother()">Book Another</button>
+</div>
+
+<script>
+    const destinationCosts = {
+        'Nairobi-Kisumu': 1500,
+        'Kisumu-Mombasa': 2000,
+        'Kakamega-Kericho': 4000,
+        'Malindi-Mombasa': 3000
+    };
+
+    const seatAvailability = {
+        'Nairobi-Kisumu': ['1A', '1B', '2A', '2B', '3A', '3B'],
+        'Kisumu-Mombasa': ['4A', '4B', '5A', '5B', '6A', '6B'],
+        'Kakamega-Kericho': ['7A', '7B', '8A', '8B', '9A', '9B'],
+        'Malindi-Mombasa': ['10A', '10B', '11A', '11B', '12A', '12B']
+    };
+
+    const vehicleRegistration = {
+        'Nairobi-Kisumu': 'KPL 123X',
+        'Kisumu-Mombasa': 'KBC 456Y',
+        'Kakamega-Kericho': 'KDE 789Z',
+        'Malindi-Mombasa': 'KAF 321W'
+    };
+
+    const form = document.getElementById('booking-form');
+    const destinationSelect = document.getElementById('destination');
+    const seatSelect = document.getElementById('seat');
+    const costInput = document.getElementById('cost');
+    const bookingSlip = document.getElementById('booking-slip');
+    const slipName = document.getElementById('slip-name');
+    const slipPhone = document.getElementById('slip-phone');
+    const slipId = document.getElementById('slip-id');
+    const slipDestination = document.getElementById('slip-destination');
+    const slipSeat = document.getElementById('slip-seat');
+    const slipCost = document.getElementById('slip-cost');
+    const vehicleRegistrationDisplay = document.getElementById('vehicle-registration');
+    const printButton = document.getElementById('print-button');
+    const bookAnotherButton = document.getElementById('book-another');
+
+    // Populate seat options based on destination
+    destinationSelect.addEventListener('change', () => {
+        const selectedDestination = destinationSelect.value;
+        const availableSeats = seatAvailability[selectedDestination] || [];
+        seatSelect.innerHTML = '<option value="">Select Seat</option>';
+        availableSeats.forEach(seat => {
+            seatSelect.innerHTML += `<option value="${seat}">${seat}</option>`;
+        });
+        costInput.value = destinationCosts[selectedDestination] || '';
+    });
+
+    // Form submission
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        const selectedDestination = destinationSelect.value;
+        const selectedSeat = seatSelect.value;
+        if (!selectedDestination || !selectedSeat) {
+            alert('Please select destination and seat');
+            return;
+        }
+        const availableSeats = seatAvailability[selectedDestination] || [];
+        if (!availableSeats.includes(selectedSeat)) {
+            alert('Selected seat is occupied. Please choose another seat.');
+            return;
+        }
+        bookingSlip.style.display = 'block';
+        slipName.textContent = form.elements['name'].value;
+        slipPhone.textContent = form.elements['phone'].value;
+        slipId.textContent = form.elements['id-number'].value;
+        slipDestination.textContent = destinationSelect.options[destinationSelect.selectedIndex].text;
+        slipSeat.textContent = selectedSeat;
+        slipCost.textContent = costInput.value;
+        vehicleRegistrationDisplay.textContent = vehicleRegistration[selectedDestination];
+        printButton.style.display = 'block';
+        bookAnotherButton.style.display = 'block';
+        // Remove booked seat from available seats
+        const updatedSeats = availableSeats.filter(seat => seat !== selectedSeat);
+        seatAvailability[selectedDestination] = updatedSeats;
+    });
+
+    // Function to print booking slip
+    function printSlip() {
+        window.print();
+    }
+
+    // Function to book another trip
+    function bookAnother() {
+        form.reset();
+        bookingSlip.style.display = 'none';
+        printButton.style.display = 'none';
+        bookAnotherButton.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
+
