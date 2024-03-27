@@ -122,6 +122,46 @@
 <p> My <b>Biography</b> gives a brief explantaionation about me on <b>Background,Education,Career,</b>and <b>Achievements.</b>
 <br>Take time to view my Biography</p>
 <a href="biography.html" class="view-project-details" style="display: inline-block; padding: 5px 10px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">View Biography</a>
+<style>.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  #toggleBiography {
+    background-color: blue;
+    color: white;
+    border: 2px solid red;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Toggle Biography</h2>
+  
+  <button id="toggleBiography">Toggle Biography</button>
+  
+  <iframe id="biographyFrame" src="biography.html" frameborder="0" width="100%" height="800px" style="display: none;"></iframe>
+</div>
+
+<script>
+document.getElementById("toggleBiography").addEventListener("click", function() {
+  var iframe = document.getElementById("biographyFrame");
+  if (iframe.style.display === "none") {
+    iframe.style.display = "block";
+  } else {
+    iframe.style.display = "none";
+  }
+});
+</script>
+
 <iframe src="biography.html" frameborder="0" width="100%" height="800px">see</iframe>
 <br><h2>Personal Infromation</h2>
 If you want to get to know me well, Here we go:
