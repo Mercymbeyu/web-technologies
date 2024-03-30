@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Scramble Game</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        text-align: center;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+    h1 {
+        margin-top: 0;
+        color: #333;
+    }
+    #scrambled-word {
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: #555;
+    }
+    #guess {
+        width: calc(100% - 100px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+    #check-btn {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+    #check-btn:hover {
+        background-color: #45a049;
+    }
+    #result {
+        margin-top: 20px;
+        font-size: 16px;
+    }
+    #timer {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 18px;
+    }
+    #score {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Scramble Game</h1>
+        <div id="timer">Time: <span id="time">60</span></div>
+        <div id="score">Score: <span id="current-score">0</span></div>
+        <div id="scrambled-word"></div>
+        <input type="text" id="guess" placeholder="Your guess">
+        <button id="check-btn" onclick="checkGuess()">Check</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const words = ['apple', 'sue', 'cute', 'sweet', 'bubble', 'cow', 'girl', 'class', 'bright','banana', 'orange', 'grape', 'strawberry', 'watermelon', 'pineapple', 'kiwi', 'goat', 'paly', 'play', 'game'/* Add more words here */];
+        let scrambledWord;
+        let originalWord;
+        let resultElement;
+        let timeLeft = 60;
+        let score = 0;
+        let timerInterval;
+
+        function initGame() {
+            originalWord = getRandomWord();
+            scrambledWord = scrambleWord(originalWord);
+            document.getElementById('scrambled-word').textContent = scrambledWord;
+            document.getElementById('guess').value = '';
+            resultElement = document.getElementById('result');
+            resultElement.textContent = '';
+            score = 0;
+            updateScore();
+            startTimer();
+        }
+
+        function getRandomWord() {
+            return words[Math.floor(Math.random() * words.length)];
+        }
+
+        function scrambleWord(word) {
+            let scrambled = '';
+            const wordArray = word.split('');
+            while (wordArray.length > 0) {
+                const randomIndex = Math.floor(Math.random() * wordArray.length);
+                scrambled += wordArray[randomIndex];
+                wordArray.splice(randomIndex, 1);
+            }
+            return scrambled;
+        }
+
+        function checkGuess() {
+            const guess = document.getElementById('guess').value.toLowerCase();
+            if (guess === originalWord) {
+                resultElement.textContent = 'Correct! You unscrambled the word.';
+                resultElement.style.color = '#4CAF50';
+                score++;
+                updateScore();
+                document.getElementById('guess').value = '';
+                originalWord = getRandomWord();
+                scrambledWord = scrambleWord(originalWord);
+                document.getElementById('scrambled-word').textContent = scrambledWord;
+            } else {
+                resultElement.textContent = 'Incorrect! Try again.';
+                resultElement.style.color = '#FF5733';
+            }
+        }
+
+        function updateScore() {
+            document.getElementById('current-score').textContent = score;
+        }
+
+        function startTimer() {
+            timeLeft = 60;
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft === 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('timer').textContent = 'Time\'s up!';
+                    alert('Your final score: ' + score);
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            document.getElementById('time').textContent = timeLeft;
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
